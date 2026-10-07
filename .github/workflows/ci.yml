@@ -1,0 +1,39 @@
+name: Windows validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node eng/validate-website.mjs
+  test-build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Validate translations and theme
+        shell: pwsh
+        run: |
+          ./eng/validate-languages.ps1
+          ./eng/validate-theme.ps1
+      - name: Run engine and presentation tests
+        shell: pwsh
+        run: |
+          foreach ($layer in @('Core', 'Application', 'Infrastructure', 'Presentation')) {
+            dotnet test "tests/PerceptoX.$layer.Tests/PerceptoX.$layer.Tests.csproj" --configuration Release --logger "trx;LogFileName=$layer.trx" --results-directory TestResults
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Build WinUI x64
+        run: dotnet build src/PerceptoX.WinUI/PerceptoX.WinUI.csproj --configuration Release -p:Platform=x64
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults

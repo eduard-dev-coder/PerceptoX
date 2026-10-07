@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="CoenM.ImageSharp.ImageHash" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PerceptoX.Infrastructure\PerceptoX.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\PerceptoX.Presentation\PerceptoX.Presentation.csproj" />
+    <!-- Exercise the actual desktop adapters without requiring a WinUI message loop. -->
+    <Compile Include="..\..\src\PerceptoX.WinUI\Services\DesktopPerceptoXWorkflow.cs" Link="DesktopIntegration\DesktopPerceptoXWorkflow.cs" />
+    <Compile Include="..\..\src\PerceptoX.WinUI\Services\DesktopBatchResultActions.cs" Link="DesktopIntegration\DesktopBatchResultActions.cs" />
+    <Compile Include="..\..\src\PerceptoX.WinUI\Services\DesktopGroupingWorkflow.cs" Link="DesktopIntegration\DesktopGroupingWorkflow.cs" />
+  </ItemGroup>
+
+</Project>

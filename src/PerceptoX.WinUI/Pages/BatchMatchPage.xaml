@@ -1,0 +1,191 @@
+<Page x:Class="PerceptoX.WinUI.Pages.BatchMatchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:loc="using:PerceptoX.WinUI.Localization"
+    xmlns:converters="using:PerceptoX.WinUI.Converters">
+    <Page.Resources><converters:BooleanToVisibilityConverter x:Key="VisibleWhen" /></Page.Resources>
+    <Grid x:Name="ContentRoot" Padding="18,0,18,18" RowSpacing="12">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Compact">
+                    <VisualState.StateTriggers><AdaptiveTrigger MinWindowWidth="0" /></VisualState.StateTriggers>
+                    <VisualState.Setters><Setter Target="HeroTitle.FontSize" Value="32" /><Setter Target="HeroArt.Width" Value="240" /><Setter Target="HeroArt.Opacity" Value="0.4" /></VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers><AdaptiveTrigger MinWindowWidth="1280" /></VisualState.StateTriggers>
+                    <VisualState.Setters><Setter Target="HeroTitle.FontSize" Value="42" /><Setter Target="HeroArt.Width" Value="420" /><Setter Target="HeroArt.Opacity" Value="1" /></VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions><RowDefinition Height="108" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+        <Grid>
+            <Image x:Name="HeroArt" Source="ms-appx:///graphics/header-illustration.png" HorizontalAlignment="Right" Width="420" Height="136" Margin="0,-14,0,-8" Stretch="Uniform" IsHitTestVisible="False" />
+            <StackPanel VerticalAlignment="Center" Margin="20,0,0,0" Spacing="4">
+                <TextBlock x:Name="HeroTitle" FontSize="42" FontWeight="Bold" Foreground="{ThemeResource PxInk}">
+                    <Run Text="{loc:UiTextExtension Key=BatchMatchPage.Text001}" /><Run Text="{loc:UiTextExtension Key=BatchMatchPage.Text002}" Foreground="{ThemeResource PxAccentText}" />
+                </TextBlock>
+                <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text003}" Foreground="{ThemeResource PxInk}" FontSize="17" TextWrapping="Wrap" MaxWidth="640" HorizontalAlignment="Left" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" ColumnSpacing="10">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <Border Background="{ThemeResource PxCard}" BorderBrush="{ThemeResource PxLine}" BorderThickness="1" CornerRadius="12" Padding="16">
+                <StackPanel Spacing="16">
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="52" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                        <Border Width="52" Height="52" CornerRadius="26" Background="{ThemeResource PxBlueGradient}"><FontIcon Glyph="&#xE8B9;" Foreground="White" FontSize="25" /></Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                            <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text004}" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource PxInk}" />
+                            <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text005}" Foreground="{ThemeResource PxMuted}" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid ColumnSpacing="6">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                        <TextBox Style="{StaticResource PxTextBox}" IsEnabled="{Binding Workspace.IsEditable}" PlaceholderText="{loc:UiTextExtension Key=BatchMatchPage.Text006}" Text="{Binding QueryRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTipService.ToolTip="{Binding QueryRoot}" />
+                        <Button Grid.Column="1" Style="{StaticResource PxBrowseButton}" IsEnabled="{Binding IsIdle}" Command="{Binding BrowseQueryFolderCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8"><FontIcon Glyph="&#xE8B7;" FontSize="18" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text007}" /></StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" Background="{ThemeResource PxCard}" BorderBrush="{ThemeResource PxLine}" BorderThickness="1" CornerRadius="12" Padding="16">
+                <StackPanel Spacing="16">
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="52" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                        <Border Width="52" Height="52" CornerRadius="26" Background="{ThemeResource PxTealGradient}"><FontIcon Glyph="&#xEB9F;" Foreground="White" FontSize="25" /></Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                            <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text008}" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource PxInk}" />
+                            <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text009}" Foreground="{ThemeResource PxMuted}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid ColumnSpacing="6">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                        <TextBox Style="{StaticResource PxTextBox}" IsEnabled="{Binding Workspace.IsEditable}" PlaceholderText="{loc:UiTextExtension Key=BatchMatchPage.Text010}" Text="{Binding Workspace.LibraryRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTipService.ToolTip="{Binding Workspace.LibraryRoot}" />
+                        <Button Grid.Column="1" Style="{StaticResource PxBrowseButton}" IsEnabled="{Binding IsIdle}" Command="{Binding BrowseLibraryFolderCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8"><FontIcon Glyph="&#xE8B7;" FontSize="18" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text007}" /></StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2" ColumnSpacing="12" Padding="0,0,0,10" BorderBrush="{ThemeResource PxLine}" BorderThickness="0,0,0,1">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+            <Button IsEnabled="{Binding CanStartMatch}" Click="OnMatchClick" Style="{StaticResource PxPrimaryButton}" MinHeight="44" Padding="20,10" FontSize="16">
+                <StackPanel Orientation="Horizontal" Spacing="14"><FontIcon Glyph="&#xE768;" FontSize="19" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text011}" /></StackPanel>
+            </Button>
+            <ComboBox Grid.Column="3" IsEnabled="{Binding IsIdle}" MinWidth="190" Height="44" CornerRadius="9" Background="{ThemeResource PxControl}" BorderBrush="{ThemeResource PxLine}" SelectedIndex="{Binding SearchProfileIndex, Mode=TwoWay}" ToolTipService.ToolTip="{loc:UiTextExtension Key=BatchMatchPage.Text013}">
+                <ComboBoxItem Content="{loc:UiTextExtension Key=BatchMatchPage.Text014}" /><ComboBoxItem Content="{loc:UiTextExtension Key=BatchMatchPage.Text015}" /><ComboBoxItem Content="{loc:UiTextExtension Key=BatchMatchPage.Text016}" />
+            </ComboBox>
+            <Button Grid.Column="4" Style="{StaticResource PxButton}" IsEnabled="{Binding IsIdle}" Height="44">
+                <StackPanel Orientation="Horizontal" Spacing="12"><FontIcon Glyph="&#xE9E9;" FontSize="18" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text017}" /><FontIcon Glyph="&#xE76C;" FontSize="12" /></StackPanel>
+                <Button.Flyout><Flyout><StackPanel Width="280" Spacing="12">
+                    <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text018}" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text019}" TextWrapping="Wrap" />
+                    <NumberBox Header="{loc:UiTextExtension Key=BatchMatchPage.Text020}" Minimum="0" Maximum="64" Value="{Binding Settings.MaxPerceptualDistance, Mode=TwoWay}" SpinButtonPlacementMode="Compact" />
+                    <NumberBox Header="{loc:UiTextExtension Key=BatchMatchPage.Text021}" Minimum="0" Maximum="64" Value="{Binding Settings.MaxDifferenceDistance, Mode=TwoWay}" SpinButtonPlacementMode="Compact" />
+                    <NumberBox Header="{loc:UiTextExtension Key=BatchMatchPage.Text022}" Minimum="0" Maximum="64" Value="{Binding Settings.MaxMultiRegionDistance, Mode=TwoWay}" SpinButtonPlacementMode="Compact" />
+                    <NumberBox Header="{loc:UiTextExtension Key=BatchMatchPage.Text023}" Minimum="1" Maximum="9" Value="{Binding Settings.MinimumMatchedRegions, Mode=TwoWay}" SpinButtonPlacementMode="Compact" />
+                </StackPanel></Flyout></Button.Flyout>
+            </Button>
+        </Grid>
+        <Border Grid.Row="3" Padding="12" CornerRadius="12" Background="{ThemeResource PxCard}" BorderBrush="{ThemeResource PxLine}" BorderThickness="1">
+            <Grid RowSpacing="8">
+                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                <Grid ColumnSpacing="18">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="40" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                    <FontIcon Glyph="&#xE8B9;" Foreground="{ThemeResource PxAccentText}" FontSize="32" VerticalAlignment="Top" />
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text025}" Foreground="{ThemeResource PxInk}" FontSize="20" FontWeight="Bold" />
+                        <TextBlock Text="{Binding StatusMessage}" Foreground="{ThemeResource PxMuted}" FontSize="12" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding StatusMessage}" />
+                    </StackPanel>
+                </Grid>
+                <ScrollViewer Grid.Row="1" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                        <Button Command="{Binding SelectBestCommand}" Style="{StaticResource PxCompactActionButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="10"><FontIcon Glyph="&#xE73A;" FontSize="18" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text026}" /></StackPanel>
+                        </Button>
+                        <Button Command="{Binding ClearSelectionCommand}" Style="{StaticResource PxCompactActionButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="10"><FontIcon Glyph="&#xE738;" FontSize="16" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text027}" /></StackPanel>
+                        </Button>
+                        <Button Command="{Binding CopySelectedCommand}" Style="{StaticResource PxCompactActionButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="10"><FontIcon Glyph="&#xE8C8;" FontSize="16" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text028}" /><Border Background="{ThemeResource PxBadge}" CornerRadius="12" Padding="7,0"><TextBlock Text="{Binding SelectedCount}" Foreground="{ThemeResource PxInk}" /></Border></StackPanel>
+                        </Button>
+                        <Button Command="{Binding ExportCsvCommand}" Style="{StaticResource PxCompactActionButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="10"><FontIcon Glyph="&#xE8A5;" FontSize="18" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text029}" /></StackPanel>
+                        </Button>
+                        <Button Command="{Binding ExportHtmlCommand}" Style="{StaticResource PxCompactActionButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="10"><FontIcon Glyph="&#xE943;" FontSize="18" /><TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text030}" /></StackPanel>
+                        </Button>
+                        <Button Content="{loc:UiTextExtension Key=BatchMatchPage.Text031}" Style="{StaticResource PxCompactActionButton}">
+                            <Button.Flyout><MenuFlyout>
+                                <MenuFlyoutItem Text="{loc:UiTextExtension Key=BatchMatchPage.Text032}" Click="OnSmartCleanupClick" />
+                                <MenuFlyoutItem Text="{loc:UiTextExtension Key=BatchMatchPage.Text033}" Click="OnRecoverCleanupClick" />
+                            </MenuFlyout></Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+                <StackPanel Grid.Row="2" Spacing="6">
+                    <ProgressBar IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource VisibleWhen}}" Height="3" />
+                    <TextBlock Text="{Binding ActionDetails}" Visibility="{Binding HasActionDetails, Converter={StaticResource VisibleWhen}}" IsTextSelectionEnabled="True" TextTrimming="CharacterEllipsis" MaxLines="2" ToolTipService.ToolTip="{Binding ActionDetails}" Foreground="{ThemeResource PxMuted}" />
+                </StackPanel>
+                <Grid Grid.Row="3">
+                    <Border VerticalAlignment="Top" Padding="22,12" Background="{ThemeResource PxSubtle}" BorderBrush="{ThemeResource PxLine}" BorderThickness="1" CornerRadius="10" Visibility="{Binding HasResults, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}">
+                        <Grid ColumnSpacing="18" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="140" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Image Source="ms-appx:///graphics/empty-state.svg" Width="140" Height="88" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="6">
+                                <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text034}" FontWeight="SemiBold" Foreground="{ThemeResource PxInk}" FontSize="15" />
+                                <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text035}" TextWrapping="Wrap" Foreground="{ThemeResource PxMuted}" MaxWidth="530" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <ListView x:Name="ResultsList" ItemsSource="{Binding Results}" SelectionMode="None" IsItemClickEnabled="False" IsEnabled="{Binding IsIdle}" Visibility="{Binding HasResults, Converter={StaticResource VisibleWhen}}">
+                        <ListView.ItemContainerStyle><Style TargetType="ListViewItem"><Setter Property="HorizontalContentAlignment" Value="Stretch" /><Setter Property="Padding" Value="0,0,0,8" /></Style></ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate><DataTemplate>
+                            <Border Padding="12" CornerRadius="9" Background="{ThemeResource PxControl}" BorderBrush="{ThemeResource PxLine}" BorderThickness="1">
+                                <Grid ColumnSpacing="20">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="0.85*" /><ColumnDefinition Width="1.3*" /></Grid.ColumnDefinitions>
+                                    <Grid VerticalAlignment="Top" ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="98" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                        <Border Height="76" CornerRadius="6" Background="{ThemeResource PxImageSurface}">
+                                            <Grid><TextBlock Text="{Binding QueryPreviewPlaceholder}" TextWrapping="Wrap" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" /><Image Source="{Binding Item.QueryThumbnailUri}" Stretch="Uniform" /></Grid>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                                            <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text036}" FontSize="11" Foreground="{ThemeResource PxMuted}" />
+                                            <TextBlock Text="{Binding Item.QueryName}" FontWeight="SemiBold" Foreground="{ThemeResource PxInk}" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding Item.QueryPath}" />
+                                            <TextBlock Text="{Binding StatusLabel}" FontSize="12" Foreground="{ThemeResource PxMuted}" />
+                                            <TextBlock Text="{Binding Item.ErrorMessage}" FontSize="11" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding Item.ErrorMessage}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding Candidates}">
+                                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Spacing="10" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate><DataTemplate>
+                                            <Grid ColumnSpacing="12">
+                                                <Grid.ColumnDefinitions><ColumnDefinition Width="74" /><ColumnDefinition Width="98" /><ColumnDefinition Width="*" /><ColumnDefinition Width="32" /></Grid.ColumnDefinitions>
+                                                <StackPanel VerticalAlignment="Center" Spacing="6">
+                                                    <Border Background="{ThemeResource PxSuccessSurface}" CornerRadius="16" Padding="4,6"><TextBlock Text="{Binding Image.ScoreLabel}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Foreground="{ThemeResource PxSuccessInk}" /></Border>
+                                                    <ProgressBar Value="{Binding Image.ScorePercent}" Maximum="100" Foreground="{ThemeResource PxSuccess}" Background="{ThemeResource PxSuccessTrack}" Height="5" />
+                                                </StackPanel>
+                                                <Border Grid.Column="1" Height="76" CornerRadius="6" Background="{ThemeResource PxImageSurface}" DoubleTapped="OnCompareDoubleTapped" ToolTipService.ToolTip="{loc:UiTextExtension Key=BatchMatchPage.Text037}">
+                                                    <Grid><TextBlock Text="{Binding Image.PreviewPlaceholder}" FontSize="10" TextWrapping="Wrap" /><Image Source="{Binding Image.ThumbnailUri}" Stretch="Uniform" /></Grid>
+                                                </Border>
+                                                <StackPanel Grid.Column="2" VerticalAlignment="Center" Spacing="3">
+                                                    <TextBlock Text="{loc:UiTextExtension Key=BatchMatchPage.Text038}" FontSize="11" Foreground="{ThemeResource PxMuted}" />
+                                                    <TextBlock Text="{Binding Image.FileName}" FontSize="15" FontWeight="Bold" Foreground="{ThemeResource PxInk}" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding Image.FilePath}" />
+                                                    <TextBlock Text="{Binding Image.FilePath}" FontSize="11" Foreground="{ThemeResource PxMuted}" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding Image.FilePath}" />
+                                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                                        <Button Content="{loc:UiTextExtension Key=BatchMatchPage.Text039}" Click="OnCompareClick" Style="{StaticResource PxCompactActionButton}" Padding="10,3" MinHeight="28" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <CheckBox Grid.Column="3" IsChecked="{Binding IsSelected, Mode=TwoWay}" MinWidth="28" Padding="0" VerticalAlignment="Center" ToolTipService.ToolTip="{loc:UiTextExtension Key=BatchMatchPage.Text042}" />
+                                            </Grid>
+                                        </DataTemplate></ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Border>
+                        </DataTemplate></ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

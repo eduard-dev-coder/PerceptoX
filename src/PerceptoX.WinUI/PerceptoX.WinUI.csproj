@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\graphics\PerceptoX.ico</ApplicationIcon>
+    <Platforms>x64;x86;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\languages\*.json" Link="languages\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\graphics\icon.png;..\..\graphics\logo.png;..\..\graphics\header-illustration.png;..\..\graphics\sidebar-ribbons.svg;..\..\graphics\empty-state.svg;..\..\graphics\PerceptoX.ico">
+      <Link>graphics\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Page Include="..\..\graphics\PerceptoX.Theme.xaml" Link="Styles\PerceptoX.Theme.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
+    <PackageReference Include="Microsoft.Graphics.Win2D" />
+    <PackageReference Include="SixLabors.ImageSharp" />
+    <ProjectReference Include="..\PerceptoX.Infrastructure\PerceptoX.Infrastructure.csproj" />
+    <ProjectReference Include="..\PerceptoX.Presentation\PerceptoX.Presentation.csproj" />
+  </ItemGroup>
+  <!-- Unpackaged WinUI publish does not automatically include all generated app XAML/PRI content. -->
+  <Target Name="IncludeCompiledWinUiResourcesInPublish" AfterTargets="ComputeFilesToPublish">
+    <ItemGroup>
+      <_CompiledWinUiResources Include="$(TargetDir)$(AssemblyName).pri;$(TargetDir)**\*.xbf" />
+      <ResolvedFileToPublish Include="@(_CompiledWinUiResources)">
+        <RelativePath>%(_CompiledWinUiResources.RecursiveDir)%(_CompiledWinUiResources.Filename)%(_CompiledWinUiResources.Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+</Project>

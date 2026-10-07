@@ -1,0 +1,25 @@
+{
+  "Schema": 1,
+  "CapturedAtUtc": "2026-10-07T16:47:27.913806Z",
+  "Language": "en",
+  "Theme": "Dark",
+  "Renderer": "Actual running WinUI XAML RenderTargetBitmap; not an AI image or fabricated UI mockup.",
+  "MatchingWorkflow": "DesktopPerceptoXWorkflow",
+  "GroupingWorkflow": "DesktopGroupingWorkflow",
+  "Summary": {
+    "TotalQueries": 1,
+    "Found": 0,
+    "NearIdentical": 1,
+    "Ambiguous": 0,
+    "NotFound": 0,
+    "Failed": 0
+  },
+  "Groups": {
+    "Images": 3,
+    "Groups": 1,
+    "Members": 3,
+    "Failed": 0
+  },
+  "Source": "NASA Goddard Space Flight Center, Blue Marble; see website/assets/SCREENSHOTS.md",
+  "Demo": "One attributed Earth image, resized/recompressed variants and an exact file copy. This is not an accuracy benchmark."
+}

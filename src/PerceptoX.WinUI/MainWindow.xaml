@@ -1,0 +1,88 @@
+<Window x:Class="PerceptoX.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:loc="using:PerceptoX.WinUI.Localization" Title="PerceptoX">
+    <Grid x:Name="RootLayout" Background="{ThemeResource PxBackground}">
+        <Grid.ColumnDefinitions><ColumnDefinition x:Name="SidebarColumn" Width="240" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+        <Grid.RowDefinitions><RowDefinition Height="32" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+        <Border Grid.RowSpan="3" Background="{ThemeResource PxSidebar}" BorderBrush="{ThemeResource PxLine}" BorderThickness="0,0,1,0">
+            <Grid>
+                <Image x:Name="SidebarRibbons" Source="ms-appx:///graphics/sidebar-ribbons.svg" VerticalAlignment="Bottom" Margin="0,0,0,62" Stretch="UniformToFill" Height="470" Opacity="0.8" IsHitTestVisible="False" />
+                <Grid>
+                    <Grid.RowDefinitions><RowDefinition Height="104" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="10" Margin="22,24,18,20" VerticalAlignment="Center">
+                        <Image Source="ms-appx:///graphics/icon.png" Width="40" Height="40" Stretch="Uniform" />
+                        <Grid Width="143" Height="34">
+                            <Image x:Name="LightWordmark" Source="ms-appx:///graphics/logo.png" Stretch="Uniform" />
+                            <Grid x:Name="DarkWordmark" Visibility="Collapsed">
+                                <TextBlock Text="Percepto" Foreground="{ThemeResource PxInk}" FontSize="22" FontWeight="ExtraBold" VerticalAlignment="Center" />
+                                <Image Source="ms-appx:///graphics/logo.png" Width="143" Stretch="Uniform">
+                                    <Image.Clip><RectangleGeometry Rect="94,0,49,34" /></Image.Clip>
+                                </Image>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                    <ListBox x:Name="Navigation" Grid.Row="1" Background="Transparent" BorderThickness="0" SelectionMode="Single"
+                        ItemContainerStyle="{StaticResource PxNavItem}" SelectionChanged="OnSelectionChanged">
+                        <ListBoxItem Tag="batch"><StackPanel Orientation="Horizontal" Spacing="18"><FontIcon Glyph="&#xE8B9;" /><TextBlock Text="{loc:UiTextExtension Key=MainWindow.Text001}" /></StackPanel></ListBoxItem>
+                        <ListBoxItem Tag="search"><StackPanel Orientation="Horizontal" Spacing="18"><FontIcon Glyph="&#xE721;" /><TextBlock Text="{loc:UiTextExtension Key=MainWindow.Text003}" /></StackPanel></ListBoxItem>
+                        <ListBoxItem Tag="groups"><StackPanel Orientation="Horizontal" Spacing="18"><FontIcon Glyph="&#xE8A9;" /><TextBlock Text="{loc:UiTextExtension Key=Grouping.Title}" /></StackPanel></ListBoxItem>
+                        <ListBoxItem Tag="indexing"><StackPanel Orientation="Horizontal" Spacing="18"><FontIcon Glyph="&#xE8F1;" /><TextBlock Text="{loc:UiTextExtension Key=MainWindow.Text002}" /></StackPanel></ListBoxItem>
+                    </ListBox>
+                    <StackPanel Grid.Row="2" Margin="20,8,20,20" Spacing="10">
+                        <Button Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="OnSettingsClick" Padding="10,8">
+                            <StackPanel Orientation="Horizontal" Spacing="18"><FontIcon Glyph="&#xE713;" /><TextBlock Text="{loc:UiTextExtension Key=MainWindow.Text004}" FontSize="15" /></StackPanel>
+                        </Button>
+                        <ComboBox x:Name="SidebarLanguagePicker" DisplayMemberPath="DisplayName" HorizontalAlignment="Stretch" SelectionChanged="OnSidebarLanguageChanged"
+                            Background="{ThemeResource PxControl}" Foreground="{ThemeResource PxInk}" BorderBrush="{ThemeResource PxLine}"
+                            AutomationProperties.Name="{loc:UiTextExtension Key=SettingsPage.Text004}" ToolTipService.ToolTip="{loc:UiTextExtension Key=SettingsPage.Text004}" />
+                        <Grid Padding="10,3" ColumnSpacing="8">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                            <FontIcon Glyph="&#xE708;" FontSize="16" Foreground="{ThemeResource PxAccentText}" VerticalAlignment="Center" />
+                            <TextBlock x:Name="SidebarThemeLabel" Grid.Column="1" Foreground="{ThemeResource PxInk}" VerticalAlignment="Center" FontSize="13" />
+                            <ToggleSwitch x:Name="SidebarThemeToggle" Grid.Column="2" MinWidth="0" OnContent="" OffContent="" Toggled="OnSidebarThemeChanged"
+                                AutomationProperties.Name="{loc:UiTextExtension Key=Theme.DarkShort}" ToolTipService.ToolTip="{loc:UiTextExtension Key=Theme.Description}" />
+                        </Grid>
+                        <Button x:Name="SidebarDonateButton" Style="{StaticResource PxButton}" Padding="12,7" MinHeight="36" HorizontalAlignment="Stretch" Click="OnDonateClick">
+                            <StackPanel Orientation="Horizontal" Spacing="9"><FontIcon Glyph="&#xEB52;" FontSize="16" Foreground="{ThemeResource PxHeart}" /><TextBlock Text="{loc:UiTextExtension Key=Donation.Button}" FontWeight="SemiBold" /></StackPanel>
+                        </Button>
+                        <HyperlinkButton Content="{loc:UiTextExtension Key=About.Link}" Click="OnAboutClick" HorizontalAlignment="Center" Padding="10,0" MinHeight="24" FontSize="12" Foreground="{ThemeResource PxAccentText}" />
+                        <TextBlock x:Name="SidebarPreferenceStatus" Visibility="Collapsed" FontSize="11" Foreground="{ThemeResource PxWarningInk}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid x:Name="TitleDragRegion" Grid.Column="1" Background="Transparent" Margin="0,0,140,0" Loaded="OnTitleBarLoaded" SizeChanged="OnTitleBarSizeChanged">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*" MinWidth="24" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" MinWidth="24" /></Grid.ColumnDefinitions>
+            <Button x:Name="TitleDonateButton" Grid.Column="1" Background="Transparent" BorderThickness="0" Padding="10,0" MinHeight="28" Height="28" Width="520" HorizontalContentAlignment="Stretch" VerticalAlignment="Center"
+                Click="OnDonateClick" PointerEntered="OnDonationPointerEntered" PointerExited="OnDonationPointerExited" GotFocus="OnDonationGotFocus" LostFocus="OnDonationLostFocus"
+                AutomationProperties.Name="{loc:UiTextExtension Key=Donation.Title}" ToolTipService.ToolTip="{loc:UiTextExtension Key=Donation.Title}">
+                <Grid x:Name="DonationViewport" Height="24" SizeChanged="OnDonationViewportSizeChanged">
+                    <StackPanel x:Name="DonationMessages">
+                        <StackPanel.RenderTransform><TranslateTransform x:Name="DonationTranslation" /></StackPanel.RenderTransform>
+                        <StackPanel Orientation="Horizontal" Spacing="8" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <FontIcon Glyph="&#xEB52;" Foreground="{ThemeResource PxHeart}" FontSize="13" VerticalAlignment="Center" />
+                            <TextBlock x:Name="CurrentDonationMessage" FontSize="12" Foreground="{ThemeResource PxMuted}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="460" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <FontIcon Glyph="&#xEB52;" Foreground="{ThemeResource PxHeart}" FontSize="13" VerticalAlignment="Center" />
+                            <TextBlock x:Name="NextDonationMessage" FontSize="12" Foreground="{ThemeResource PxMuted}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="460" />
+                        </StackPanel>
+                    </StackPanel>
+                    <Grid x:Name="DonationBlurHost" IsHitTestVisible="False" />
+                </Grid>
+            </Button>
+        </Grid>
+        <Frame x:Name="ContentFrame" Grid.Column="1" Grid.Row="1" />
+        <Border Grid.Column="1" Grid.Row="2" Margin="24,0,24,16" Padding="12,8" CornerRadius="10" Background="{ThemeResource PxCard}"
+            BorderBrush="{ThemeResource PxLine}" BorderThickness="1">
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                <Ellipse x:Name="ModuleStatusDot" Width="8" Height="8" Fill="#E2A329" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{loc:UiTextExtension Key=MainWindow.Text005}" FontWeight="SemiBold" FontSize="12" Foreground="{ThemeResource PxInk}" VerticalAlignment="Center" />
+                <TextBlock x:Name="ModuleSummary" Grid.Column="2" Text="{loc:UiTextExtension Key=MainWindow.Text006}" FontSize="12"
+                    Foreground="{ThemeResource PxMuted}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                <Button x:Name="ModulesButton" Grid.Column="3" Content="{loc:UiTextExtension Key=MainWindow.Text007}" Click="OnModulesClick" Style="{StaticResource PxButton}" Padding="12,5" MinHeight="30" FontSize="12" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

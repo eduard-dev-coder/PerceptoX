@@ -1,0 +1,73 @@
+<Page
+    x:Class="PerceptoX.WinUI.Pages.IndexingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:loc="using:PerceptoX.WinUI.Localization"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource PxBackground}">
+    <Page.Resources><Style TargetType="Button" BasedOn="{StaticResource PxButton}" /><Style TargetType="TextBox" BasedOn="{StaticResource PxTextBox}" /></Page.Resources>
+    <ScrollViewer>
+        <StackPanel MaxWidth="920" Padding="32" Spacing="18" HorizontalAlignment="Left">
+            <TextBlock
+                FontSize="32" FontWeight="Bold" Foreground="{ThemeResource PxInk}"
+                Text="{loc:UiTextExtension Key=IndexingPage.Text001}"
+                AutomationProperties.HeadingLevel="Level1" />
+            <TextBlock
+                Text="{loc:UiTextExtension Key=IndexingPage.Text002}"
+                TextWrapping="Wrap" />
+
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Header="{loc:UiTextExtension Key=IndexingPage.Text003}"
+                    IsEnabled="{Binding Workspace.IsEditable}"
+                    Text="{Binding Workspace.LibraryRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    AutomationProperties.Name="{loc:UiTextExtension Key=IndexingPage.Text004}" />
+                <Button
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding BrowseLibraryCommand}"
+                    Style="{StaticResource PxBrowseButton}"
+                    Content="{loc:UiTextExtension Key=IndexingPage.Text005}"
+                    AutomationProperties.Name="{loc:UiTextExtension Key=IndexingPage.Text006}" />
+            </Grid>
+
+            <TextBox
+                Header="{loc:UiTextExtension Key=IndexingPage.Text007}"
+                IsEnabled="{Binding Workspace.IsEditable}"
+                Text="{Binding Workspace.DatabasePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.Name="{loc:UiTextExtension Key=IndexingPage.Text008}" />
+            <TextBox
+                Header="{loc:UiTextExtension Key=IndexingPage.Text009}"
+                IsEnabled="{Binding Workspace.IsEditable}"
+                Text="{Binding Workspace.ThumbnailCacheRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.Name="{loc:UiTextExtension Key=IndexingPage.Text010}" />
+
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button
+                    Command="{Binding IndexCommand}"
+                    Content="{loc:UiTextExtension Key=IndexingPage.Text011}"
+                    Style="{StaticResource PxDialogPrimaryButton}" />
+                <Button Command="{Binding CancelCommand}" Content="{loc:UiTextExtension Key=BatchMatchPage.Text012}" />
+                <ProgressRing
+                    Width="24"
+                    Height="24"
+                    IsActive="{Binding IsBusy}"
+                    AutomationProperties.Name="{loc:UiTextExtension Key=IndexingPage.Text012}" />
+            </StackPanel>
+
+            <InfoBar
+                IsOpen="True"
+                IsClosable="False"
+                Severity="Informational"
+                Message="{Binding StatusMessage}"
+                AutomationProperties.Name="{Binding StatusMessage}"
+                AutomationProperties.LiveSetting="Polite" />
+            <TextBlock Text="{Binding ProgressLabel}" TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

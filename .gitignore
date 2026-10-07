@@ -1,0 +1,29 @@
+# Local dependency and build outputs
+.packages/
+.sandbox-profile/
+.winui-smoke/
+.reference/
+.bench-data/
+**/BenchmarkDotNet.Artifacts/
+**/.benchmark-artifacts/
+**/bin/
+**/obj/
+
+# Local AI delegation artifacts
+.local-ai/
+
+# Distribution payloads and local validation data are Release assets, not source.
+artifacts/
+vendor/
+tools/inno-setup-*/
+tools/downloads/
+.cache/
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# IDE and user-specific files
+.vs/
+*.user
+*.suo

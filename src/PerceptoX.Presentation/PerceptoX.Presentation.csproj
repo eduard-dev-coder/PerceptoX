@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\languages\ro.json" LogicalName="PerceptoX.Languages.ro.json" />
+    <EmbeddedResource Include="..\..\languages\en.json" LogicalName="PerceptoX.Languages.en.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <ProjectReference Include="..\PerceptoX.Application\PerceptoX.Application.csproj" />
+  </ItemGroup>
+</Project>

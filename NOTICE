@@ -1,0 +1,20 @@
+PerceptoX
+Copyright (C) 2026 PerceptoX contributors.
+
+The original PerceptoX code is licensed under GPL-3.0-only; see LICENSE.
+This does not relicense third-party libraries, runtime binaries, fonts,
+images or fixtures. Their notices and licenses remain applicable.
+
+ImageMagick is developed by ImageMagick Studio LLC. Its app-local payload
+includes License.txt and NOTICE.txt for ImageMagick and its delegates.
+PerceptoX modifies policy.xml and retains the upstream attribution.
+
+SixLabors.ImageSharp 3.1.12 is used under Apache-2.0 for use in the
+open-source GPL-3.0-only PerceptoX project. Attribution and the Apache-2.0
+license are included in the licenses directory; upstream license metadata
+is retained as provenance.
+
+This repository/source archive is not a clearance to redistribute every
+bundled third-party binary. Corresponding-source/relink obligations,
+graphic rights and compatibility of the complete binary distribution
+with GPL and Microsoft runtime terms remain release gates.

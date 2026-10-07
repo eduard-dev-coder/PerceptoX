@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://eduard-dev-coder.github.io/PerceptoX/sitemap.xml
