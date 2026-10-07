@@ -50,7 +50,8 @@ async function loadPublishedDownloads() {
     document.getElementById("installer-link").textContent = "Download installer ↓";
     document.getElementById("zip-link").href = zip.browser_download_url;
     document.getElementById("zip-link").textContent = "Download portable ZIP ↓";
-    document.getElementById("release-status").textContent = `${release.tag_name} · ${release.prerelease ? "Preview release — review release notes before using" : "Published release"}`;
+    const signingNotice = /\*\*This release is unsigned\.\*\*/.test(release.body || "") ? " · Unsigned — Windows may show a publisher warning" : "";
+    document.getElementById("release-status").textContent = `${release.tag_name} · ${release.prerelease ? "Preview release — review release notes before using" : "Published release"}${signingNotice}`;
   } catch {
     // Leave working Releases links and the honest unpublished/unknown state intact.
   } finally { clearTimeout(timer); }
